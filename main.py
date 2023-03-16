@@ -35,6 +35,7 @@ from dataset import (
     trivial_collate,
 )
 
+import pdb
 
 # Model class containing:
 #   1) Implicit volume defining the scene
@@ -97,19 +98,21 @@ def render_images(
         ray_bundle = get_rays_from_pixels(xy_grid, image_size, camera) # TODO (1.3): implement in ray_utils.py
 
         # TODO (1.3): Visualize xy grid using vis_grid
+        W, H = image_size[0], image_size[1]
         if cam_idx == 0 and file_prefix == '':
-            pass
+            ndc_image = vis_grid(xy_grid, image_size)
+            plt.imsave("outputs/vis_grid.png", ndc_image)
 
         # TODO (1.3): Visualize rays using vis_rays
         if cam_idx == 0 and file_prefix == '':
-            pass
+            rays = vis_rays(ray_bundle, image_size)
+            plt.imsave("outputs/vis_rays.png", rays)
         
         # TODO (1.4): Implement point sampling along rays in sampler.py
-        pass
 
         # TODO (1.4): Visualize sample points as point cloud
         if cam_idx == 0 and file_prefix == '':
-            pass
+            render_points()
 
         # TODO (1.5): Implement rendering in renderer.py
         out = model(ray_bundle)
